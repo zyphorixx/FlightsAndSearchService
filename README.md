@@ -1,27 +1,21 @@
-# FlightAndSearch
+# Welcome to Flights Service
 
-A Node.js backend project for managing flight search functionality. This project is structured using MVC principles and modular configuration to handle environment variables, database connections, and application logic.
+## Project Setup
+- clone the project on your local
+- Execute `npm install` on the the same path as of your root directory of the downloaded project.
+- Create a `.env` file in the root directory and add the following environment variables.
+    - `PORT : 3000`
+- Inside the `src/config` folder create a new file `config.json` and then add the following piece of json.
 
----
-
-## Project Structure
-
-FlightAndSearch/
-├── node_modules/           # Node.js dependencies
-├── src/
-│   ├── config/             # Configuration files
-│   │   ├── db.js           # Database connection configuration
-│   │   └── serverConfig.js # Server environment configuration
-│   ├── controllers/        # Route controllers
-│   ├── middlewares/        # Express middlewares
-│   ├── models/             # Database models
-│   ├── repository/         # Data access layer
-│   ├── services/           # Business logic layer
-│   ├── utils/              # Utility functions
-│   └── index.js            # Entry point of the application
-├── .env                    # Environment variables (ignored in git)
-├── .gitignore
-├── package.json
-├── package-lock.json
-└── README.md
+```
+{
+    "development": {
+    "username": <YOUR_DB_LOGIN_NAME>,
+    "password": <YOUR DB_PASSWORD>,
+    "database": "FLIGHT_AND_SEARCH_DB",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
 

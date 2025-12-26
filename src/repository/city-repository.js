@@ -11,7 +11,7 @@ class CityRepository {
             throw {error};
         }
     }
-    
+
     async deleteCity (cityId) {
         try {
             await City.destroy({
@@ -26,7 +26,7 @@ class CityRepository {
         }
     }
 
-    async updateCity (data , cityId) {
+    async updateCity (data , cityId) {  // data is also an object
         try {
             const city = await City.update(data, {
                 where: {

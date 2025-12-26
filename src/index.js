@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config(); // must be at the top
 
 const {PORT} = require('./config/serverConfig');
+
 const bodyParser = require("body-parser");
 const CityRepository = require('./repository/city-repository');
 

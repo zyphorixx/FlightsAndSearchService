@@ -31,11 +31,14 @@ class CityRepository {
 
     async updateCity (data , cityId) {  // data is also an object
         try {
-            const city = await City.update(data, {
-                where: {
-                    id : cityId
-                }
-            });
+            // const city = await City.update(data, {
+            //     where: {
+            //         id : cityId
+            //     }
+            // });
+            const city = await City.findByPk(cityId);
+            city.name = data.name;
+            await city.save();
             return city;
         }
         catch(error){

@@ -1,14 +1,16 @@
-const { City } = require('../models/city');
+const { City } = require('../models');
 
 class CityRepository {
+
     async createCity ({name}) { // destructuring the object then and there
         try {
+            console.log("Repo createCity name:", name);
             const city = await City.create({name}); // fetching the object
             return city;
         } 
         catch (error){
             console.log("Something went wrong in the repository layer");
-            throw {error};
+            throw error;
         }
     }
 
@@ -23,7 +25,7 @@ class CityRepository {
         }
         catch(error){ // to catch database lvl errors
             console.log("Something went wrong in the repository layer");
-            throw {error};
+            throw error;
         }
     }
 
@@ -38,7 +40,7 @@ class CityRepository {
         }
         catch(error){
             console.log("Something went wrong in the repository layer");
-            throw {error};
+            throw error;
         }
     }
 
@@ -54,7 +56,7 @@ class CityRepository {
         } 
         catch (error) {
            console.log("Something went wrong in the repository layer");
-           throw { error };
+           throw error;
         }
     }
 }

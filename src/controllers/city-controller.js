@@ -1,96 +1,100 @@
-const { CityService } = require('./services/index');
+const { CityService } = require('../services/index');
 
 const cityService = new CityService();
 
-const create = async (req,res) => {
+// POST : /city
+const create = async (req, res) => {
     try {
-        // iss line me controller service ko jo request aayi hai woh bhej rha hai
-        const city = await cityService.createCity(req.body); 
-        
-        // fir service aur repository ne jo response bheja woh return kr rha hai
+        // Controller request ko service ko forward karta hai
+        const city = await cityService.createCity(req.body);
+
         return res.status(201).json({
-            data : city,
-            success : true,
-            message : 'Successfully created a city',
-            err : {}
+            data: city,
+            success: true,
+            message: 'Successfully created a city',
+            err: {}
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            data : {},
-            success : false,
-            message : 'Not able to create a city',
-            err : error
+            data: {},
+            success: false,
+            message: 'Not able to create a city',
+            err: error
         });
     }
-}
-// DELETE : req.params.id (cityId)
-const destroy = async (req,res) => {
+};
+
+// DELETE : /city/:id
+const destroy = async (req, res) => {
     try {
         const city = await cityService.deleteCity(req.params.id);
+
         return res.status(200).json({
-            data : city,
-            success : true,
-            message : 'Successfully deleted the city',
-            err : {}
+            data: city,
+            success: true,
+            message: 'Successfully deleted the city',
+            err: {}
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            data : {},
-            success : false,
-            message : 'Not able to delete the city',
-            err : error
+            data: {},
+            success: false,
+            message: 'Not able to delete the city',
+            err: error
         });
     }
-}
+};
 
-// GET : req.params.id
-const get = async (req,res) => {
+// GET : /city/:id
+const get = async (req, res) => {
     try {
         const city = await cityService.getCity(req.params.id);
-        return res.status(201).json({
-            data : city,
-            success : true,
-            message : 'Successfully fetched the city',
-            err : {}
+
+        return res.status(200).json({
+            data: city,
+            success: true,
+            message: 'Successfully fetched the city',
+            err: {}
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            data : {},
-            success : false,
-            message : 'Not able to fetch the city',
-            err : error
+            data: {},
+            success: false,
+            message: 'Not able to fetch the city',
+            err: error
         });
     }
-}
+};
 
-// PATCH : /city/:id 
-const update = async (req,res) => {
+// PATCH : /city/:id
+const update = async (req, res) => {
     try {
         const city = await cityService.updateCity(req.params.id, req.body);
-        return res.status(201).json({
-            data : city,
-            success : true,
-            message : 'Successfully created a city',
-            err : {}
+
+        return res.status(200).json({
+            data: city,
+            success: true,
+            message: 'Successfully updated the city',
+            err: {}
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            data : {},
-            success : false,
-            message : 'Not able to update the city',
-            err : error
+            data: {},
+            success: false,
+            message: 'Not able to update the city',
+            err: error
         });
     }
-}
+};
 
 module.exports = {
     create,
     destroy,
     get,
     update
-}
+};
 

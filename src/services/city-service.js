@@ -1,5 +1,5 @@
 // Object destructuring : Exported object se sirf CityRepository nikaal lo
-const { CityRepository } = require('./repository/index'); 
+const { CityRepository } = require('../repository/index'); 
 
 class CityService {
     // CityRepository ka object bana rahe hain
@@ -15,7 +15,7 @@ class CityService {
         }
         catch(error) {
             console.log("Something went wrong at service layer");
-            throw {error};
+            throw error;
         }
     }
 
@@ -26,18 +26,18 @@ class CityService {
         }
         catch(error) {
             console.log("Something went wrong at service layer");
-            throw {error};
+            throw error;
         }
     }
 
-    async updateCity(cityId, data) {
+    async updateCity(data, cityId) {
         try {
             const city = await this.cityRepository.updateCity(cityId, data);
             return city;
         }
         catch(error) {
             console.log("Something went wrong at service layer");
-            throw {error};
+            throw error;
         }
     }
 
@@ -48,7 +48,7 @@ class CityService {
         }
         catch(error) {
             console.log("Something went wrong at service layer");
-            throw {error};
+            throw error;
         }
     }
 }

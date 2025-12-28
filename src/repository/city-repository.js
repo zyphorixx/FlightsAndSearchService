@@ -1,4 +1,5 @@
 const { City } = require('../models');
+const { Op } = require('sequelize');
 
 class CityRepository {
 
@@ -63,15 +64,29 @@ class CityRepository {
         }
     }
 
-    async getAllCities() {
-        try {
-            const cities = await City.findAll();
-            return cities;
-        } 
-        catch (error) {
-            console.log("Something went wrong in the repository layer");
-            throw error;
+    async getAllCities(filter) {
+    try {
+      // Agar filter me name aaya
+    if (filter.name) {
+      const cities = await City.findAll({
+        where: {
+          name: {
+            [Op.startsWith]: filter.name // starts with filter.name
+          }
         }
+      });
+      return cities;
+    }
+
+    // Agar koi filter nahi hai
+    const cities = await City.findAll();
+    return cities;
+
+    } 
+    catch (error) {
+      console.log("Something went wrong in the repository layer");
+      throw error;
+    }
     }
 }
 

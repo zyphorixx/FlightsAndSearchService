@@ -4,6 +4,9 @@ require("dotenv").config(); // must be at the top
 const {PORT} = require('./config/serverConfig');
 const ApiRoutes = require('./routes/index');
 
+const db = require('./models/index');
+// const { Airport , City } = require(',/models/index');
+
 const bodyParser = require("body-parser");
 const CityRepository = require('./repository/city-repository');
 
@@ -19,8 +22,12 @@ const setupAndStartServer = async () => {
 // Aur agar "/city" aata hai, toh city related routes ko handle kiya jaata hai.
   app.use('/api', ApiRoutes); 
    
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
     console.log(`Server started on port ${PORT}`);
+
+    if(process.env.SYNC_DB){
+      db.sequelize.sync({alter : true});  // Auto-sync models with DB tables for one time only
+    }
   });
 };
 

@@ -1,14 +1,59 @@
-const flights = require('../models/flights');
-const { Flights } = require('../models/index');
+const { Flights } = require('../models/index'); 
+const { Op } = require('sequelize');
 
 class FlightRepository {
 
-    async createFlight(data){
+    #createFilter(data) {  // private method
+        let filter = {};
+        if (data.arrivalAirportId) {
+            filter.arrivalAirportId = data.arrivalAirportId;
+        }
+        if (data.departureAirportId) {
+            filter.departureAirportId = data.departureAirportId;
+        }
+        if (data.minPrice) {
+            Object.assign(filter, { price: { [Op.gte]: data.minPrice } });
+        }
+        if (data.maxPrice) {
+            Object.assign(filter, { price: { [Op.lte]: data.maxPrice } });
+        }
+        if(data.minPrice && data.maxPrice){
+            Object.assign(filter, {
+                [Op.and]: [
+                    {price : {[Op.lte] : data.maxPrice}},
+                    {price : {[Op.gte] : data.minPrice}}
+                ]
+            })
+        }
+        return filter;
+    }
+
+    async createFlight(data) {
         try {
             const flight = await Flights.create(data);
             return flight;
-        } 
-        catch (error) {
+        } catch (error) {
+            console.log("Something went wrong at repository layer");
+            throw error;
+        }
+    }
+
+    async getFlight(flightId) {
+        try {
+            const flight = await Flights.findByPk(flightId);
+            return flight;
+        } catch (error) {
+            console.log("Something went wrong at repository layer");
+            throw error;
+        }
+    }
+
+    async getAllFlights(filter) { // Fixed: Added 'filter' parameter
+        try {
+            const filterObject = this.#createFilter(filter); // Pass filter data
+            const flights = await Flights.findAll({ where: filterObject }); // Use filter
+            return flights;
+        } catch (error) {
             console.log("Something went wrong at repository layer");
             throw error;
         }
@@ -16,4 +61,3 @@ class FlightRepository {
 }
 
 module.exports = FlightRepository;
-

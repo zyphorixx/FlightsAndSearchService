@@ -1,29 +1,23 @@
 const express = require('express');
 const CityController = require('../../controllers/city-controller');
-
 const router = express.Router();
 
-router.post('/city', CityController.create);
-router.delete('/city/:id', CityController.destroy);
-router.get('/city/:id', CityController.get);   
-router.patch('/city/:id', CityController.update);
-router.get('/city', CityController.getAll);
+// Create city
+router.post('/', CityController.create);
 
-router.post('/city/bulk', CityController.createMultiple);
+// Bulk create cities
+router.post('/bulk', CityController.createMultiple);
+
+// Get all cities
+router.get('/', CityController.getAll);
+
+// Get city by id
+router.get('/:id', CityController.get);
+
+// Update city
+router.patch('/:id', CityController.update);
+
+// Delete city
+router.delete('/:id', CityController.destroy);
 
 module.exports = router;
-
-/*
-Client
-  ↓ POST /city
-Router
-  ↓
-CityController.create
-  ↓
-CityService
-  ↓
-CityRepository
-  ↓
-Database
-*/
-

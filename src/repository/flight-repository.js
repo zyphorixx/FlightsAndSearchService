@@ -48,10 +48,10 @@ class FlightRepository {
         }
     }
 
-    async getAllFlights(filter) { // Fixed: Added 'filter' parameter
+    async getAllFlights(filter) { 
         try {
-            const filterObject = this.#createFilter(filter); // Pass filter data
-            const flights = await Flights.findAll({ where: filterObject }); // Use filter
+            const filterObject = this.#createFilter(filter); 
+            const flights = await Flights.findAll({ where: filterObject }); 
             return flights;
         } catch (error) {
             console.log("Something went wrong at repository layer");
